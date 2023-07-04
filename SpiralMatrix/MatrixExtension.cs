@@ -26,7 +26,50 @@ namespace SpiralMatrix
         /// </example>
         public static int[,] GetMatrix(int size)
         {
-            throw new NotImplementedException("You need to implement this method.");
+            if (size < 1)
+            {
+                throw new ArgumentException("Matrix size cannot be less or equal zero");
+            }
+
+            int[,] matrix = new int[size, size];
+            int x = 0, y = 0, max = size - 1, min = 0;
+            for (int i = 1; i <= size * size; i++)
+            {
+                matrix[x, y] = i;
+                if (x == min && y != max)
+                {
+                    y++;
+                }
+                else
+                {
+                    if (y == max && x != max)
+                    {
+                        x++;
+                    }
+                    else
+                    {
+                        if (x == max && y != min)
+                        {
+                            y--;
+                        }
+                        else
+                        {
+                            if (y == min && x != min + 1)
+                            {
+                                x--;
+                            }
+                            else
+                            {
+                                max -= 1;
+                                min += 1;
+                                y++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return matrix;
         }
     }
 }
